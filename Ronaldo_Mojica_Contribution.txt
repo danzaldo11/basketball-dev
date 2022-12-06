@@ -1,0 +1,2 @@
+I will be working on the User Interface of the project, making sure that the front end of my projects website is working and compabtuible with out database as well as making sure that the user experience is at a good place.
+I will focus mostly on the register page, login page, main page/home, and the interactable pages that will be within the home page as well as a settings option for the users color blind settings.
