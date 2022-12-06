@@ -1,0 +1,1 @@
+This semester I have researched for universal design elements, hundreds of NBA players individual stats from the previous year, helped Dylan input all current NBA players into a spread sheet. I have researched numerous things for the HTML aspect for the user interface. I have developed the current ER diagram that will be used in our slides. 
