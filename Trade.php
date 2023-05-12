@@ -1,9 +1,12 @@
+<?php
+session_start();
+?>
 <html lang="en">
 <head>	
 	<meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scaled=1.0">
     <link href='https://fonts.googleapis.com/css?family=Russo One' rel='stylesheet'>
-    <title> BASKETBALLDEV HOME</title>
+    <title> BASKETBALLDEV TRADE</title>
     <style type="text/css">
 		br{
 			line-height: 10px;
@@ -20,7 +23,7 @@
   			text-decoration: none;
   			font-size: 17px;
 		}
-		.navbar a:hover {
+		o.navbar a:hover {
   			background-color: #FF0000;
         }
         .navbar .search-container {
@@ -116,9 +119,9 @@
         }
         .column.leftmid {
             width: 295%;
-            height: 250%;
+            height:250%;
   			background: #F5FFFA;
-			margin: 10px;
+			margin: 5px;
 			border: 2px solid red;
 			text-align: center;
         }
@@ -133,7 +136,6 @@
         /* Middle column */
         .column.middle {
             width: 90%;
-            height:90%;
   			background: #F5FFFA;
 			margin: 10px;
 			border: 2px solid red;
@@ -160,13 +162,7 @@
     <img src="TeamLogos/logo.png" width="100" alt="Logo" />
     <h1 style="color:white;"> Basketball Trade Machine </h1>
     <h3>
-    <div class="Search-container">
-        <form action="#" method = "POST"> 
-			    <input type="text" placeholder="Search..." name= "search">
-                <button type="submit">Submit</button>
-        </form>
-    </div>
-    <a href="Trade.php"><i class="fa fa-fw fa-user"></i>MAKE A TRADE</a>
+    <a href="Home.php"><i class="fa fa-fw fa-user"></i>HOME</a>
     <a href="Home1.php"><i class="fa fa-fw fa-user"></i>LOGOUT</a>
         <div class="dropdown">
             <button class="dropbtn">
@@ -182,43 +178,102 @@
 	</h3>
 </div>
 
+<?php
+$servername = "localhost";
+$username = "basketballdev";
+$password = "qam$9Hruqrzm";
+$dbname = "basketballdev";
+
+$conn = new mysqli($servername, $username, $password, $dbname);
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+?>
+
 <div class="sidenav-main">
         <div class="column left">
-            <h2>ROOKIE BIG BOARD</h2>
+            <h2> Team 1 </h2>
             <hr style="width:80%; height:2px; color:red; background-color:red">
-                1. Victor Wembanyama - C <br>
-                2. Scoot Henderson - PG <br>
-                3. Brandon Miller - SF <br>
-                4. Amen Thompson - SG <br>
-                5. Ausar Thompson - SG <br>
-                <a href="BigBoard.php">Click here for more detail</a>
+            <form action="" method="POST">
+                <input type="text" placeholder="Search..." name="search1">
+            </form>
+            <?php
+            if (isset($_POST["search1"])) {
+            $_SESSION["player_found"] = 0;
+            $sql = "SELECT * FROM players";
+            $result = $conn->query($sql);
+            while ($row = $result->fetch_assoc()) {
+                if ($row["name"] == $_POST["search1"]) {
+                    $_SESSION["player_found"] = 1;
+                    $_SESSION["player1"] = $row["name"];
+                    }
+                }
+            }
+                if ($_SESSION["player_found"] == 1) {
+                    echo $_SESSION["player1"] . " -> ";
+                } else {
+                    echo "Player not found";
+                }
+            ?>
         </div>
-  
-        <div class="column middle">
-            <h2>SEASON POINT LEADERS</h2>
-            <hr style="width:80%; height:2px; color:red; background-color:red">
-                1. Joel Embiid - 33.1 <br>
-                2. Luka Doncic - 32.4 <br>
-                3. Damian Lillard - 32.2 <br>
-                4. Shai Gilgeous-Alexander - 31.4 <br>
-                5. Giannis Antetokounmpo - 31.1 <br>
-                <a href="PointLeaders.php">Click here for more detail</a>
-        </div>
-  
         <div class="column righttop">
-            <h2>MOCK DRAFT</h2>
+            <h2> Team 2 </h2>
             <hr style="width:80%; height:2px; color:red; background-color:red">
-                1. Detroit - Victor Wembanyama <br>
-                2. Houston - Scoot Henderson <br>
-                3. San Antonio - Brandon Miller <br>
-                4. Charlotte - Amen Thompson <br>
-                5. Orlando - Ausar Thompson <br>
-                <a href="MockDraft.php">Click here for more detail</a>                
+            <form action="" method="POST"> 
+                <input type="text" placeholder="Search..." name="search2"> 
+            </form> 
+            <?php 
+            if (isset($_POST["search2"])) { 
+            $_SESSION["player_found2"] = 0; 
+            $sql = "SELECT * FROM players"; 
+            $result = $conn->query($sql); 
+            while ($row = $result->fetch_assoc()) { 
+                if ($row["name"] == $_POST["search2"]) { 
+                    $_SESSION["player_found2"] = 1; 
+                    $_SESSION["player2"] = $row["name"]; 
+                    } 
+                } 
+            } 
+                if ($_SESSION["player_found2"] == 1) { 
+                    echo " <- " . $_SESSION["player2"]; 
+                } else { 
+                    echo "Player not found"; 
+                } 
+            ?>
+        </div>
+        <div class = "column middle">
+        <h2> Compile Trade </h2>
+        <hr style="width:80%; height:2px; color:red; background-color:red">
+            <?php
+                $sql = "SELECT * FROM players";
+                $result = $conn->query($sql);
+                while ($row = $result->fetch_assoc()) {
+                    if ($row["name"] == $_SESSION["player1"]) {
+                        $_SESSION["value1"] = $row["2021_score"];
+                        $team = $row["team"];
+                    }
+                    if ($row["name"] == $_SESSION["player2"]) {
+                        $_SESSION["value2"] = $row["2021_score"];
+                        if ($value2 >= $value1) {
+                            $team = $row["team"];
+                        }
+                    }
+                }
+            $diff = abs($_SESSION["value1"] - $_SESSION["value2"]);    
+                //echo $team . " wins trade by " . $diff; 
+                //echo "<br>"; 
+                echo $team . " wins trade by " . $diff . " points"; 
+                echo "<br>";
+                echo "The players being traded are:";
+                echo "<br>";
+                echo $_SESSION["player1"] . " and " . $_SESSION["player2"];
+                echo "<br>";
+        ?>
         </div>
         <div class="column leftmid">
-            <h2>NBA TEAMS</h2>
+            <h2>View Players</h2>
                 <hr style="width:100%; height:2px; color:red; background-color:red">
-                Legend: -> Name - Position - Experience - Salary - Role
+                Legend: - Name - Position - Experience - Salary - Role
                 <form method="POST" action="">
                 Team List :
                 <select name="team" onchange="this.form.submit()">
@@ -258,18 +313,6 @@
                 <hr style="width:50%; height:2px; color:red; background-color:red">
 
                 <?php
-                $servername = "localhost";
-                $username = "basketballdev";
-                $password = "qam$9Hruqrzm";
-                $dbname = "basketballdev";
- 
-                // Create connection
-                $conn = new mysqli($servername, $username, $password, $dbname);
-                // Check connection
-                if ($conn->connect_error) {
-                    die("Connection failed: " . $conn->connect_error);
-                }
-
                 if(isset($_POST["team"])) {
                     $team=$_POST["team"];
                     if ($_POST["team"] == "Atlanta Hawks") 
@@ -353,7 +396,6 @@
                 } else {
                     $team=NULL;  
                 }
-                $conn->close();
                 ?>
             <img src="<?php echo $image;?>">
         </div>
@@ -367,4 +409,4 @@
         </div>
     </footer>
 </body>
-</html>          
+</html>        

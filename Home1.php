@@ -116,9 +116,9 @@
         }
         .column.leftmid {
             width: 295%;
-            height: 250%;
+            height:250%;
   			background: #F5FFFA;
-			margin: 10px;
+			margin: 5px;
 			border: 2px solid red;
 			text-align: center;
         }
@@ -166,8 +166,8 @@
                 <button type="submit">Submit</button>
         </form>
     </div>
-    <a href="Trade.php"><i class="fa fa-fw fa-user"></i>MAKE A TRADE</a>
-    <a href="Home1.php"><i class="fa fa-fw fa-user"></i>LOGOUT</a>
+        <a href="Login.php"><i class="fa fa-fw fa-user"></i>LOGIN</a>
+        <a href="Create_account.php"><i class="fa fa-fw fa-user"></i>CREATE ACCOUNT</a>
         <div class="dropdown">
             <button class="dropbtn">
                 SETTINGS
@@ -191,18 +191,18 @@
                 3. Brandon Miller - SF <br>
                 4. Amen Thompson - SG <br>
                 5. Ausar Thompson - SG <br>
-                <a href="BigBoard.php">Click here for more detail</a>
+                <br> Login to view more
         </div>
   
         <div class="column middle">
             <h2>SEASON POINT LEADERS</h2>
             <hr style="width:80%; height:2px; color:red; background-color:red">
                 1. Joel Embiid - 33.1 <br>
-                2. Luka Doncic - 32.4 <br>
+                2.Luka Doncic - 32.4 <br>
                 3. Damian Lillard - 32.2 <br>
                 4. Shai Gilgeous-Alexander - 31.4 <br>
                 5. Giannis Antetokounmpo - 31.1 <br>
-                <a href="PointLeaders.php">Click here for more detail</a>
+                <br> Login to view more
         </div>
   
         <div class="column righttop">
@@ -213,7 +213,7 @@
                 3. San Antonio - Brandon Miller <br>
                 4. Charlotte - Amen Thompson <br>
                 5. Orlando - Ausar Thompson <br>
-                <a href="MockDraft.php">Click here for more detail</a>                
+                <br> Login to view more                
         </div>
         <div class="column leftmid">
             <h2>NBA TEAMS</h2>
@@ -256,7 +256,7 @@
                 </select>
                 </form/>
                 <hr style="width:50%; height:2px; color:red; background-color:red">
-
+                
                 <?php
                 $servername = "localhost";
                 $username = "basketballdev";
@@ -362,9 +362,9 @@
         <div class="bottom"> 
             &copy; BASKETBALLDEV <hr style="width:1000px">
             <p>
-            <h6><a href="Developers_Home.html" style="color:white">MEET THE DEVELOPERS</a> | <a href="Home.php" style="color:white">HOME</a> | <a href="Questions_Home.html" style="color:white">FREQUENTLY ASKED QUESTIONS</a></h6>
+            <h6><a href="Developers_Basic.html" style="color:white">MEET THE DEVELOPERS</a> | <a href="Home1.php" style="color:white">HOME</a> | <a href="Questions_Basic.html" style="color:white">FREQUENTLY ASKED QUESTIONS</a></h6>
             </p>
         </div>
     </footer>
 </body>
-</html>          
+</html>       

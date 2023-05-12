@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <html lang="en">
 <head>	
 	<meta charset="UTF-8">
@@ -87,12 +90,12 @@
     <hr style="height:4px; color:gold; background-color:#2618EE">
     <hr style="height:4px; width:900px; color:gold; background-color:gold">
     <div class="top"></div>
-	<div class="login">
+	<div class="login"o>
 		<h2>SIGN IN WITH YOUR DEV ID</h2>
-		<form action="login.php" method= "POST">
+		<form action="Home.php" method= "POST">
 			<label for="username">Username</label>	<input type="text" name= "username"> 
 			<label for="password">Password</label><br><input type="password" name= "password"><br><br>
-			<input type="submit" name= "Login" value="Login">
+			<input type="submit" name= "Login" value="Login"> 
 			<br>
 			<p>DON'T HAVE AN ACCOUNT? <a href="Create_account.php" style="color:#DAA520">CREATE ACCOUNT</a></p>
 		</form>
@@ -102,7 +105,7 @@
         <div class="bottom"> 
             &copy; BASKETBALLDEV <hr style="width:1000px">
             <p>
-            <h6><a href="Customer_Support.html" style="color:white">CUSTOMER SUPPORT</a> | <a href="Home.html" style="color:white">HOME</a> | <a href="Questions.html" style="color:white">FREQUENTLY ASKED QUESTIONS</a></h6>
+            <h6><a href="Developers_Basic.html" style="color:white">MEET THE DEVELOPERS</a> | <a href="Home.html" style="color:white">HOME</a> | <a href="Questions_Basic.html" style="color:white">FREQUENTLY ASKED QUESTIONS</a></h6>
             </p>
         </div>
     </footer>
@@ -112,7 +115,7 @@
 
 <?php
 
-require_once "getconnection.php";
+//require_once "Connection.php";
 
 if (isset($_SESSION["error"])) {
 	echo $_SESSION["error"];
@@ -125,8 +128,10 @@ if (isset($_POST['Login'])) {
 	$db = get_connection();
 	$username = $_POST['username'];
 	$password = $_POST['password'];
-	$validation = $db ->prepare("select * from Customer where username = ?");
-	$validation -> bind_param('s', $username);
+	$validation = $db ->prepare("select username from user");
+    $validation -> bind_param('s', $username);
+    $validation = $db ->prepare("SELECT password from user");
+    $validation -> bind_param('s', $password);
 
 	if($validation ->execute()){
 		$login_result = $validation -> get_result();
@@ -136,32 +141,31 @@ if (isset($_POST['Login'])) {
 
 		if($loginInfo === False) {
 
-			$_SESSION['error'] = "error: username and or passowrd was not found";
+			$_SESSION['error'] = "error: username and or password was not found";
 		}
 
 		else {
 			$isGood = password_verify($password, $loginInfo["password"]);
 
 			if ($isGood) {
-				session_start();
 
-				$_SESSION["Customer_id"] = $loginInfo["ID"];
+				$_SESSION["userID"] = $loginInfo["ID"];
 				$_SESSION["username"] = $loginInfo["username"];
 
 
 
-				header("Location: NanoCenter.php");
+			    header("Location: Home.php");
 			}
 			else {
 				$_SESSION["error"] = "Error: the username and/or password was not found";
-				header("Location: home.html");
+                header("Location: Home1.php");
 			}
 		}
 	}
 }	
 
 	else {
-		echo "Error getting result: login info not found";
+		//echo "Error getting result: login info not found";
 		die();
 	}
 
